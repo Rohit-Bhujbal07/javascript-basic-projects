@@ -1,0 +1,32 @@
+<html>
+<head>
+  <title>Digital Clock</title>
+  <style>
+    #clock {
+      font-size: 24px;
+      text-align: center;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="clock"></div>
+
+  <script>
+    function updateClock() {
+      var now = new Date();
+      var date = now.toDateString();
+      var time = now.toLocaleTimeString();
+
+      var clock = document.getElementById('clock');
+      clock.innerText = date + ' ' + time;
+    }
+
+    // Update the clock every second
+    setInterval(updateClock, 1000);
+
+    // Initial update
+    updateClock();
+  </script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<html>
+    <head>
+        <title>"Tic Tac Toe"</title>
+        <h1>Tic Tac Toe</h1>
+
+        <style>
+            table{
+                border-collapse: collapse;
+            }
+            td{
+                width: 100px;
+                height: 100px;
+                text-align: center;
+                border:1px solid black;
+                cursor: pointer;
+            }
+            .div{
+                margin-top: 20px;
+                font-weight: bold;
+
+            }
+
+        </style>
+      
+    </head>
+    <body>
+        <table id="table" onclick="makeMove(event)">
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td> 
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td> 
+            </tr> 
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            
+        </table>
+        <div class="div" id="d1"></div>
+        <script>
+            var currentPlayer='X';
+            var gameEnded = false;
+
+            function makeMove(event){
+                const cell= event.target;
+              //alert("hii");
+              if(cell.tagName === 'TD' && !gameEnded && cell.textContent === ''){
+                cell.textContent = currentPlayer;
+
+                if(checkWin()){
+                    document.getElementById("d1").textContent = "Win...!";
+                    resetBoard();
+                }
+                else if(checkDraw()){
+                    document.getElementById("d1").textContent = "Tie...!";
+                    resetBoard();
+                }
+                else{
+                    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+                }
+
+              }
+  
+            }
+            function checkWin() {
+            const cells = document.getElementsByTagName('td');
+            const winningComb = [
+              [0, 1, 2], [3, 4, 5], [6, 7, 8], 
+              [0, 3, 6], [1, 4, 7], [2, 5, 8], 
+              [0, 4, 8], [2, 4, 6] 
+             ];
+             for (let i = 0; i < winningComb.length; i++) {
+                  const combination = winningComb[i];
+                  const a = combination[0];
+                  const b = combination[1];
+                  const c = combination[2];
+            if (
+                 cells[a].textContent === currentPlayer &&
+                 cells[b].textContent === currentPlayer &&
+                 cells[c].textContent === currentPlayer
+               ) 
+                {
+                  return true;
+                 }
+            }
+               return false;
+            }
+            function checkDraw() {
+              const cells = document.getElementsByTagName('td');
+              for (let i = 0; i < cells.length; i++) {
+                  if (cells[i].textContent === '') {
+                     return false;
+                  }
+               }
+               return true;
+            }
+            function resetBoard() {
+              const cells = document.getElementsByTagName('td');
+              for (let i = 0; i < cells.length; i++) {
+                   cells[i].textContent = '';
+               }
+                currentPlayer = 'X';
+           }
+
+            
+
+
+        </script>
+    </body>
+</html>
